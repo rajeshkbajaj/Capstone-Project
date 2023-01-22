@@ -1,0 +1,20 @@
+#creating the persistent volume for the statefulset using the EBS volume 
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: my-pv
+  namespace: demo
+  labels:
+    type: my-pv
+spec:
+  claimRef:
+    name: my-pvc #Attaches the PVC called my-pvc to this PV so they are bound and not utilized with other available volumes.
+    namespace: demo
+  capacity:
+    storage: 11Gi
+  accessModes:
+    - ReadWriteOnce
+  awsElasticBlockStore:
+    volumeID: vol-0b2a07ee41c2c22b5 #EBS VOlume ID created beforehand
+  hostPath:
+    path: /var/lib/redis

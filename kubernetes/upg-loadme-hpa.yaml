@@ -1,0 +1,23 @@
+---
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: upg-loadme
+  namespace: demo
+spec:
+  # Add hpa spec as per requirement
+  # Refer: https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/#creating-the-autoscaler-declaratively
+  #@Rajesh
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: upg-loadme
+  minReplicas: 1
+  maxReplicas: 5
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 50 # CPU utilization limit set to 50% so new pod will be created once the limit is reached.

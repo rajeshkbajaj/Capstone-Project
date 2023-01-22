@@ -1,0 +1,9 @@
+# Method 1: This file is been used when verifying with Helm redis stateful set chart
+master:
+  resources:
+    limits:
+      cpu: 200m
+      memory: 200Mi
+auth:
+  enabled: false
+  
